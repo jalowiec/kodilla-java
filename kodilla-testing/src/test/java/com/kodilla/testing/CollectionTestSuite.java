@@ -4,6 +4,8 @@ import com.kodilla.testing.collection.OddNumbersExterminator;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CollectionTestSuite {
 
@@ -32,15 +34,12 @@ public class CollectionTestSuite {
         //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         //When
+        Integer patternArray[] = {-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10};
+        List<Integer> paternArrayList = Arrays.asList(patternArray);
+
         ArrayList<Integer> exampleArrayList = new ArrayList<>();
         for(int i=-10; i<= 10; i++){
             exampleArrayList.add(i);
-        }
-        ArrayList<Integer> paternArrayList = new ArrayList<>();
-        for(int i=-10; i<= 10; i++){
-            if(i % 2 == 0) {
-                paternArrayList.add(i);
-            }
         }
         ArrayList<Integer> result = oddNumbersExterminator.exterminate(exampleArrayList);
         //Then
