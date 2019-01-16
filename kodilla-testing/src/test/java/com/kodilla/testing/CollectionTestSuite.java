@@ -44,7 +44,7 @@ public class CollectionTestSuite {
         }
         ArrayList<Integer> result = oddNumbersExterminator.exterminate(exampleArrayList);
         //Then
-        Assert.assertEquals(result, paternArrayList);
+        Assert.assertEquals(paternArrayList, result);
     }
 
 }
