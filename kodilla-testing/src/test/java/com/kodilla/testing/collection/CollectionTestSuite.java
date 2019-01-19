@@ -1,4 +1,4 @@
-package com.kodilla.testing;
+package com.kodilla.testing.collection;
 
 import com.kodilla.testing.collection.OddNumbersExterminator;
 import org.junit.*;
@@ -18,6 +18,11 @@ public class CollectionTestSuite {
         System.out.println("Test Case - koniec");
     }
 
+    @BeforeClass
+    public static void beforeClass() {
+        System.out.println("Test Suite: begin");
+    }
+
     @Test
     public void testOddNumbersExterminatorEmptyList(){
         //Given
@@ -34,8 +39,8 @@ public class CollectionTestSuite {
         //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         //When
-        Integer patternArray[] = {-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10};
-        List<Integer> paternArrayList = Arrays.asList(patternArray);
+        Integer[] patternArray = {-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10};
+        List<Integer> expectedList = Arrays.asList(patternArray);
 
         ArrayList<Integer> exampleArrayList = new ArrayList<>();
         for(int i=-10; i<= 10; i++){
@@ -43,7 +48,7 @@ public class CollectionTestSuite {
         }
         ArrayList<Integer> result = oddNumbersExterminator.exterminate(exampleArrayList);
         //Then
-        Assert.assertEquals(paternArrayList, result);
+        Assert.assertEquals(expectedList, result);
     }
 
 }
