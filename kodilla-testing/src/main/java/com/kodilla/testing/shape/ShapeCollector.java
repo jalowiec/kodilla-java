@@ -9,8 +9,9 @@ public class ShapeCollector {
 
 
     public void addFigure(Shape shape){
-        if(!shape.equals(null))
-        shapesList.add(shape);
+        if(shape != null) {
+            shapesList.add(shape);
+        }
     }
 
     public boolean removeFigure(Shape shape){
