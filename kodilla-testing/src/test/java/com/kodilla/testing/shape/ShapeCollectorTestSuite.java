@@ -36,11 +36,14 @@ public class ShapeCollectorTestSuite {
     public void testAddFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
+        Square square = new Square();
+        Triangle triangle = new Triangle();
+        Circle circle = new Circle();
 
         //When
-        shapeCollector.addFigure(new Square());
-        shapeCollector.addFigure(new Triangle());
-        shapeCollector.addFigure(new Circle());
+        shapeCollector.addFigure(square);
+        shapeCollector.addFigure(triangle);
+        shapeCollector.addFigure(circle);
 
         //Then
         Assert.assertEquals(3, shapeCollector.showFigures().size());
@@ -82,19 +85,19 @@ public class ShapeCollectorTestSuite {
         shapeCollector.addFigure(expectedCircle);
 
         //When
-        Shape retrivedSquare = shapeCollector.getFigure(0);
-        Shape retrivedTriangle = shapeCollector.getFigure(1);
-        Shape retrivedCircle = shapeCollector.getFigure(2);
-        Shape retrivedOutOfRangeGreater = shapeCollector.getFigure(3);
-        Shape retrivedOutOfRangeLower = shapeCollector.getFigure(-1);
+        Shape receivedSquare = shapeCollector.getFigure(0);
+        Shape receivedTriangle = shapeCollector.getFigure(1);
+        Shape receivedCircle = shapeCollector.getFigure(2);
+        Shape receivedOutOfRangeGreater = shapeCollector.getFigure(3);
+        Shape receivedOutOfRangeLower = shapeCollector.getFigure(-1);
 
 
         //Then
-        Assert.assertEquals(expectedSquare, retrivedSquare);
-        Assert.assertEquals(expectedTriangle, retrivedTriangle);
-        Assert.assertEquals(expectedCircle, retrivedCircle);
-        Assert.assertEquals(null, retrivedOutOfRangeGreater);
-        Assert.assertEquals(null, retrivedOutOfRangeLower);
+        Assert.assertEquals(expectedSquare, receivedSquare);
+        Assert.assertEquals(expectedTriangle, receivedTriangle);
+        Assert.assertEquals(expectedCircle, receivedCircle);
+        Assert.assertEquals(null, receivedOutOfRangeGreater);
+        Assert.assertEquals(null, receivedOutOfRangeLower);
 
     }
 
