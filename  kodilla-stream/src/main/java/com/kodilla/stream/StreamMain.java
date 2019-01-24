@@ -1,17 +1,26 @@
 package com.kodilla.stream;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
+import com.kodilla.stream.forumuser.Sex;
+
+import java.time.Period;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 public class StreamMain {
     public static void main(String[] args) {
 
-        PoemBeautifier poemBeautifier = new PoemBeautifier();
-        poemBeautifier.beautify("Tekst do upiekszenia", s -> "***" + s + "***");
-        poemBeautifier.beautify("Tekst do upiekszenia", s -> s.toUpperCase());
-        poemBeautifier.beautify("   Tekst do upiekszenia    ", s -> s.trim());
-        poemBeautifier.beautifySpace("Tekst do upiekszenia", "---", (s, t) -> s);
-        poemBeautifier.beautifyDoubleSide("Tekst do upiekszenia", "AAA", "BBB", (s, l, r) -> l + s + r);
+        Forum forum = new Forum();
+        Map<Integer, ForumUser> resultMap =  forum.getForumUserList()
+                .stream()
+                .filter(forumUser -> forumUser.getUserSex().equals(Sex.M))
+                .filter(forumUser -> Period.between(forumUser.getUserBirthDate(), LocalDate.now()).getYears() > 20)
+                .filter(forumUser -> forumUser.getPostedPostNumber()>0)
+                .collect(Collectors.toMap(ForumUser::getUserId, forumUser -> forumUser));
+
+        System.out.println(resultMap);
     }
 }
