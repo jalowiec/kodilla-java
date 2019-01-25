@@ -12,6 +12,15 @@ public class ArrayOperationsTestSuite {
         //When
         double result = ArrayOperations.getAverage(tab);
         //Then
-        assertEquals(3.5, result, 0.0);
+        assertEquals(8.375, result, 0.0);
+    }
+    @Test
+    public void testGetAverageEmpty(){
+        //Given
+        int[] tab = new int[0];
+        //When
+        double result = ArrayOperations.getAverage(tab);
+        //Then
+        assertEquals(0.0, result, 0.0);
     }
 }
