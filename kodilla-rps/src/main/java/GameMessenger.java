@@ -17,9 +17,21 @@ public class GameMessenger {
         System.out.println("Podaj liczbe wygranych rund: ");
     }
 
-    public void gameNextMove(int roundNumber, int allRoundNumber){
-        System.out.println("Runda " + roundNumber + " z " + allRoundNumber + ". Wybierz ruch: ");
+    public void gameNextMove(){
+        System.out.println("Wybierz ruch: ");
     }
+
+    public void roundUserWin(){
+        System.out.println("Wygrales te runde! ");
+    }
+    public void roundComputerWIn(){
+        System.out.println("Komputer wygral te runde ");
+    }
+    public void roundDraw(){
+        System.out.println("Remis - trzeba powtorzyc runde");
+    }
+
+
 
     public void userTranslatedChoice (String translatedChoice){
         System.out.println("Wybrales: " + translatedChoice);
@@ -37,9 +49,11 @@ public class GameMessenger {
         System.out.println("Czy na pewno zakonczyc aktualna gre?");
     }
 
-    public void gameStatistic(){
-        System.out.println("Statystyki:");
+    public void showGameStatistic(int userWins, int computerWins){
+        System.out.println("Wygrane uzytkownika: " + userWins + ".\n" +  "Wygrane komputera: " + computerWins + "."  );
     }
+
+
 
 
 }

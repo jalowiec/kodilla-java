@@ -5,11 +5,8 @@ public class RpsRunner {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         GameMessenger gameMessenger = new GameMessenger();
-        UserChoiceParser ucp = new UserChoiceParser();
-        KeyTranslator keyTranslator = new KeyTranslator();
-        RandomChoice randomChoice = new RandomChoice();
-
-
+        GameStatistics gameStatistics = new GameStatistics();
+        RoundExecutor roundExecutor = new RoundExecutor();
 
         gameMessenger.nameAsk();
         String userName = sc.next();
@@ -21,34 +18,28 @@ public class RpsRunner {
 
         gameMessenger.gameRules();
 
-        int roundNumber = 0;
+        int roundWinsNumber = 0;
         boolean end = false;
 
         while (!end) {
-            roundNumber++;
-            gameMessenger.gameNextMove(roundNumber, allRoundsNumber);
-            String userChoice = sc.next();
-            while (!ucp.roundUserChoiceCorrect(userChoice)) {
-                gameMessenger.gameNextMove(roundNumber, allRoundsNumber);
-                userChoice = sc.next();
+            roundWinsNumber++;
+            roundExecutor.executeRound();
+            if(roundExecutor.isUserWon()){
+                gameStatistics.incrementUserWins();
+                gameMessenger.roundUserWin();
+            }else{
+                gameStatistics.incrementComputerWins();
+                gameMessenger.roundComputerWIn();
             }
-            gameMessenger.userTranslatedChoice(keyTranslator.tranlateKey(userChoice));
-            String computerChoice = randomChoice.getRandomChoice();
-            gameMessenger.computerTranslatedChoice(keyTranslator.tranlateKey(computerChoice));
+            int userWinsNumber = gameStatistics.getUserWins();
+            int computerWinsNumber = gameStatistics.getComputerWins();
+            gameMessenger.showGameStatistic(userWinsNumber, computerWinsNumber);
 
-
-            if (roundNumber == allRoundsNumber) {
+            if (roundWinsNumber == allRoundsNumber) {
                 end = true;
             }
         }
-
-
-
-
-
-
-
-
+        sc.close();
 
     }
 
