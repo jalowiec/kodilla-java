@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class FlightSearcher {
 
-    public void findFlight(Flight flight) throws RouteNotFoundException {
+    public boolean findFlight(Flight flight) throws RouteNotFoundException {
 
         Map<String, Boolean> arrivalAirport = new HashMap<>();
         arrivalAirport.put("FRA", true);
@@ -14,8 +14,10 @@ public class FlightSearcher {
         arrivalAirport.put("RMI", true);
         arrivalAirport.put("WAW", false);
 
-        if(!arrivalAirport.containsKey(flight.arrivalAirport)){
-            throw  new RouteNotFoundException("Nie znaleziono lotniska w bazie lotnisk.");
+        if(!arrivalAirport.containsKey(flight.arrivalAirport)) {
+            throw new RouteNotFoundException("Nie znaleziono lotniska w bazie lotnisk.");
+        } else{
+            return arrivalAirport.get(flight.getArrivalAirport());
         }
 
 
