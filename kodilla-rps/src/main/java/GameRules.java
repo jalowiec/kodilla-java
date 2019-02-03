@@ -1,25 +1,24 @@
 public class GameRules {
 
-    public boolean isDraw(String userChoice, String computerChoice){
+    public boolean isDraw(Enum userChoice, Enum computerChoice){
 
-        if(userChoice.equals(computerChoice)){
+        if(userChoice == computerChoice){
             return true;
         }
         return false;
     }
 
-    public boolean isUserWin(String userChoice, String computerChoice){
+    public boolean isUserWin(Enum userChoice, Enum computerChoice){
 
-        if(userChoice.equals("Kamien") && computerChoice.equals("Nozyce")){
+        if(userChoice == GameChoice.R && computerChoice == GameChoice.S){
             return true;
         }
-        if(userChoice.equals("Papier") && computerChoice.equals("Kamien")){
+        if(userChoice == GameChoice.P && computerChoice == GameChoice.R){
             return true;
         }
-        if(userChoice.equals("Nozyce") && computerChoice.equals("Papier")){
+        if(userChoice == GameChoice.S && computerChoice == GameChoice.P){
             return true;
         }
-
         return false;
     }
 }

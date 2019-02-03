@@ -11,6 +11,14 @@ public class GameStatistics {
         return computerWins;
     }
 
+    public int getWins(){
+        if(userWins > computerWins){
+            return userWins;
+        }else{
+            return computerWins;
+        }
+    }
+
     public void incrementUserWins() {
         userWins++;
     }
