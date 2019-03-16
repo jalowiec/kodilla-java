@@ -2,9 +2,9 @@ package com.kodilla.good.patterns.challenges.ProductOrder;
 
 public class OrderDto {
 
-    public User user;
-    public Product product;
-    public boolean isOrdered;
+    private User user;
+    private Product product;
+    private boolean isOrdered;
 
     public OrderDto(User user, Product product, boolean isOrdered) {
         this.user = user;
