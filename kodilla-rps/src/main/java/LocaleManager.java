@@ -1,14 +1,15 @@
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Scanner;
+
 
 public class LocaleManager {
 
     private Locale locale;
     public static ResourceBundle messages;
+    private ScannerSingleton scannerSingleton = ScannerSingleton.getInstance();
 
     public void getLocalFromUser(){
-        Scanner scanner = new Scanner(System.in);
+
         boolean isLanguageCorrect = false;
 
         while(!isLanguageCorrect) {
@@ -17,7 +18,7 @@ public class LocaleManager {
             System.out.println("Choose an english: e");
             System.out.println("Selezioni italiano: i");
 
-            String userLanguage = scanner.next();
+            String userLanguage = scannerSingleton.next();
             switch (userLanguage) {
                 case "p":
                     locale = new Locale("pl");
@@ -36,6 +37,7 @@ public class LocaleManager {
             }
         }
         messages = ResourceBundle.getBundle("MessagesBundle", locale );
+
     }
 
 }

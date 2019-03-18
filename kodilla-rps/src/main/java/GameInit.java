@@ -1,11 +1,12 @@
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class GameInit {
 
+    private ScannerSingleton scannerSingleton = ScannerSingleton.getInstance();
+
     public String getUserName() {
         System.out.println(LocaleManager.messages.getString("ask for name"));
-        return RpsRunner.scanner.next();
+        return scannerSingleton.next();
     }
 
     public int getRoundsNumber() {
@@ -14,7 +15,7 @@ public class GameInit {
         while (!isRoundsNumberCorrect) {
             System.out.println(LocaleManager.messages.getString("ask for round number"));
             try{
-                userRoundsNumber = RpsRunner.scanner.nextInt();
+                userRoundsNumber = scannerSingleton.nextInt();
                 if(userRoundsNumber > 0 && userRoundsNumber < 11){
                     isRoundsNumberCorrect = true;
                 }else{
@@ -23,7 +24,7 @@ public class GameInit {
             }
             catch (InputMismatchException e) {
                 System.out.println(LocaleManager.messages.getString("wrong number format"));
-                String inputMismatchNumber = RpsRunner.scanner.next();
+                String inputMismatchNumber = scannerSingleton.next();
             }
         }
         return userRoundsNumber;

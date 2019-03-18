@@ -1,7 +1,6 @@
 package com.kodilla.good.patterns.challenges.FlightSearchEngine;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

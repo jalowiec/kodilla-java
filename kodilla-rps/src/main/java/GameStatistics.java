@@ -1,7 +1,8 @@
 public class GameStatistics {
 
-    int userWins;
-    int computerWins;
+    private int userWins;
+    private int computerWins;
+
 
     public int getUserWins() {
         return userWins;
