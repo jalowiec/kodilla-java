@@ -18,5 +18,8 @@ public class ScannerSingleton {
     public int nextInt(){
         return scanner.nextInt();
     }
+    public void close(){
+        scanner.close();
+    }
 
 }

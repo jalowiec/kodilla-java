@@ -26,7 +26,7 @@ public class GameHolder {
         System.exit(0);
     }
 
-    private void startNewGame(GameSettings gameSettings){
+    private void startNewGame(GameSettings gameSettings) {
         GameProcessor gameProcessor = new GameProcessor(gameSettings);
         gameProcessor.process();
     }

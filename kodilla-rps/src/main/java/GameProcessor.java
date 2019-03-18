@@ -1,6 +1,8 @@
 public class GameProcessor {
 
+
     private GameSettings gameSettings;
+    private ScannerSingleton scannerSingleton = ScannerSingleton.getInstance();
 
     public GameProcessor(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
@@ -16,6 +18,7 @@ public class GameProcessor {
             roundExecutor.finishRound();
             if (gameStatistics.getWins() == gameSettings.getRoundNumber()) {
                 endGame = true;
+                scannerSingleton.close();
             }
         }
     }
