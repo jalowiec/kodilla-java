@@ -14,9 +14,9 @@ public class BoardTestSuite {
         ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
         Board board = context.getBean(Board.class);
         //When
-        String firstToDoTask = "first toDo task";
-        String firstInProgressTask = "first inProgress task";
-        String firstDoneTask = "first done task";
+        String firstToDoTask = "first toDo tasks";
+        String firstInProgressTask = "first inProgress tasks";
+        String firstDoneTask = "first done tasks";
         board.getToDoList().addTask(firstToDoTask);
         board.getInProgressList().addTask(firstInProgressTask);
         board.getDoneList().addTask(firstDoneTask);
