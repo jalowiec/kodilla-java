@@ -24,6 +24,7 @@ public class SudokuRound {
                 String incorrectFormatSize = scannerSingleton.next();
                 System.out.println("Podany rozmiar nie jest liczba!");
             }
+            scannerSingleton.nextLine();
 
         }
         return result;
