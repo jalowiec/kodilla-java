@@ -1,8 +1,6 @@
 package com.kodilla.sudoku;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SudokuRound {
 
@@ -12,13 +10,13 @@ public class SudokuRound {
         Scanner scannerSingleton = ScannerSingleton.getInstance();
         boolean tableSizeCorrect = false;
         while(!tableSizeCorrect){
-            System.out.println("Podaj rozmiar tabeli od 3 do 9: ");
+            System.out.println("Podaj rozmiar tabeli: 3, 6 lub 9: ");
             if(scannerSingleton.hasNextInt()){
                 result = scannerSingleton.nextInt();
                 if(isTableSizeCorrect(result)) {
                     tableSizeCorrect = true;
                 } else{
-                    System.out.println("Podana liczba nie jest z zakresu od 3 do 9");
+                    System.out.println("Podana liczba nie jest z poprawnego zakresu");
                 }
             } else {
                 String incorrectFormatSize = scannerSingleton.next();
@@ -31,7 +29,7 @@ public class SudokuRound {
     }
 
     private boolean isTableSizeCorrect(int tableSize) {
-        if (tableSize >= 3 && tableSize <= 9) {
+        if (tableSize == 3 || tableSize == 6 || tableSize == 9) {
             return true;
         }
         return false;
@@ -43,7 +41,7 @@ public class SudokuRound {
         for(int i=0; i<sudokuTableSize; i++){
             SudokuRow sudokuRow = new SudokuRow();
             for(int j=0; j<sudokuTableSize; j++){
-                SudokuElement sudokuElement = new SudokuElement();
+                SudokuElement sudokuElement = new SudokuElement(sudokuTableSize);
                 sudokuRow.getSudokuElementList().add(sudokuElement);
             }
             sudokuRowList.add(sudokuRow);

@@ -7,39 +7,44 @@ public class SudokuGame {
 
 
     Scanner scannerSingleton = ScannerSingleton.getInstance();
-    int sudokuTableSize;
     List<SudokuRow> sudokuRowList;
     SudokuBoard sudokuBoard;
+    SudokuOperations sudokuOperation;
 
     public SudokuGame() {
         startSudokuRound();
-        drawSudokuTable();
+
     }
 
-    private void startSudokuRound(){
+    private void startSudokuRound() {
         SudokuRound sudokuRound = new SudokuRound();
-        sudokuTableSize = sudokuRound.getSudokuTableSize();
+        int sudokuTableSize = sudokuRound.getSudokuTableSize();
         sudokuRowList = sudokuRound.initSudokuBoard(sudokuTableSize);
         sudokuBoard = new SudokuBoard(sudokuRowList);
+        sudokuOperation = new SudokuOperations(sudokuBoard);
+        drawSudokuTable(sudokuTableSize);
         System.out.println(sudokuBoard.toString());
     }
 
-    private void drawSudokuTable(){
+    private void drawSudokuTable(int sudokuTableSize) {
         boolean endOfDrawingTable = false;
-        while(!endOfDrawingTable){
-            System.out.println("Podaj wiersz, kolumne i wartość .");
+        while (!endOfDrawingTable) {
+            System.out.println("Podaj wiersz, kolumne i wartość (-1 aby wyczyscic komorke)");
             System.out.println("Aby zakonczyc wprowadzanie wpisz: SUDOKU");
 
             String userInput = scannerSingleton.nextLine();
-            if(userInput.equals("SUDOKU")){
+            if (userInput.equals("SUDOKU")) {
                 endOfDrawingTable = true;
-            }else{
-                if(isUserInputCorrect(userInput)){
+                SudokuSolver sudokuSolver = new SudokuSolver(sudokuBoard);
+                sudokuSolver.solve();
+
+            } else {
+                if (isUserInputCorrect(userInput)) {
                     String[] userInputTable = userInput.split(" ");
                     int rowNumberToInputValue = Integer.parseInt(userInputTable[0]);
                     int colNumberToInputValue = Integer.parseInt(userInputTable[1]);
                     int valueToInput = Integer.parseInt(userInputTable[2]);
-                    insertValueFromUserIntoSudokuTable(rowNumberToInputValue-1, colNumberToInputValue-1, valueToInput);
+                    sudokuOperation.insertValueIntoSudokuTable(rowNumberToInputValue - 1, colNumberToInputValue - 1, valueToInput);
                     System.out.print(sudokuBoard.toString());
                 }
             }
@@ -47,6 +52,7 @@ public class SudokuGame {
     }
 
     private boolean isUserInputCorrect(String userInput) {
+        int sudokuTableSize = sudokuBoard.getSudokuRowList().size();
         String[] userInputTable = userInput.split(" ");
         if (userInputTable.length != 3) {
             System.out.println("Niepoprawna liczba argumentow");
@@ -55,10 +61,9 @@ public class SudokuGame {
             try {
                 for (int i = 0; i < userInputTable.length; i++) {
                     int userImputNumber = Integer.parseInt(userInputTable[i]);
-                    if(i==2 && userImputNumber == -1){
-                        //clearing element
-                    }
-                    else if(userImputNumber > sudokuTableSize || userImputNumber < 1) {
+                    if ((i < 2 && (userImputNumber > sudokuTableSize || userImputNumber < 1)) ||
+                            i == 2 && userImputNumber != -1 && (userImputNumber > sudokuTableSize || userImputNumber < 1)) {
+
                         System.out.println("Podane liczby powinny być z zakresu: od 1 do " + sudokuTableSize);
                         return false;
                     }
@@ -73,11 +78,9 @@ public class SudokuGame {
         return true;
     }
 
-    private void insertValueFromUserIntoSudokuTable(int rowNumber, int colNumber, int value){
-        sudokuBoard.getSudokuRowList().get(rowNumber).getSudokuElementList().get(colNumber).setValue(value);
-    }
 
-    public boolean resolveSudoku(){
+
+    public boolean resolveSudoku() {
         return true;
     }
 }

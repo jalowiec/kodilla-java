@@ -1,6 +1,7 @@
 package com.kodilla.sudoku;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SudokuRow {
@@ -9,4 +10,7 @@ public class SudokuRow {
     public List<SudokuElement> getSudokuElementList() {
         return sudokuElementList;
     }
+
+
+
 }
