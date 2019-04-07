@@ -15,10 +15,23 @@ public class SudokuOperations {
 
         if (value != -1) {
             sudokuElement.getValuesToEliminate().clear();
+            removeValuefromValuesToEliminateFromRow(rowNumber, value);
+            removeValuefromValuesToEliminateFromColumn(colNumber, value);
         } else {
             sudokuElement.fillAllValuesToEliminate(sudokuBoard.getSudokuRowList().size());
         }
 
+    }
+    private void removeValuefromValuesToEliminateFromRow(int rowNumber, int valueToEliminate){
+        for(SudokuElement sudokuElement : sudokuBoard.getSudokuRowList().get(rowNumber).getSudokuElementList()){
+            sudokuElement.getValuesToEliminate().remove(valueToEliminate);
+          }
+    }
+
+    private void removeValuefromValuesToEliminateFromColumn(int colNumber, int valueToEliminate){
+        for(SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()){
+            sudokuRow.getSudokuElementList().get(colNumber).getValuesToEliminate().remove(valueToEliminate);
+         }
     }
 
 }

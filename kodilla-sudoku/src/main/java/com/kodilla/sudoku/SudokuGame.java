@@ -36,7 +36,7 @@ public class SudokuGame {
             if (userInput.equals("SUDOKU")) {
                 endOfDrawingTable = true;
                 SudokuSolver sudokuSolver = new SudokuSolver(sudokuBoard);
-                sudokuSolver.solve();
+               // sudokuSolver.solve();
 
             } else {
                 if (isUserInputCorrect(userInput)) {
