@@ -1,42 +1,34 @@
 package com.kodilla.sudoku;
 
-import java.util.*;
-
 public class SudokuSolver {
     private SudokuBoard sudokuBoard;
-    private List<Set<Integer>> listOfUnusedValuesForRows = new ArrayList<>();
-    private List<Set<Integer>> listOfUnusedValuesForColumns = new ArrayList<>();
-    private List<Set<Integer>> listOfUnusedValuesForSection = new ArrayList<>();
-
-
     public SudokuSolver(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
     }
 
     public void solve() {
-        for (int i = 0; i < sudokuBoard.getSudokuRowList().size(); i++) {
-            SudokuRow sudokuRow = sudokuBoard.getSudokuRowList().get(i);
-            listOfUnusedValuesForRows.add(setUsedValueForRow(sudokuRow));
-            eliminateUsedValueForRow(sudokuRow, i);
-        }
-    }
-
-    private Set<Integer> setUsedValueForRow(SudokuRow sudokuRow) {
-        Set<Integer> usedValuesForRow = new HashSet<>();
-        for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
-            int valueToAdd = sudokuElement.getValue();
-            if (valueToAdd != -1) {
-                usedValuesForRow.add(valueToAdd);
+        boolean continueMarkingProcedure = true;
+        while (continueMarkingProcedure) {
+            continueMarkingProcedure = false;
+            int row = 1;
+            for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
+                int col = 1;
+                for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
+                System.out.println(sudokuElement.getValuesToEliminate());
+                    /*if (sudokuElement.getValuesToEliminate().size() == 1) {
+                        Integer[] valueToEliminate = sudokuElement.getValuesToEliminate().stream().toArray(Integer[]::new);
+                        sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(row, col, valueToEliminate[0]);
+                        continueMarkingProcedure = true;
+                    }*/
+                    col++;
+                }
+                row++;
             }
         }
-        return usedValuesForRow;
+        sudokuBoard.toString();
     }
-
-    private void eliminateUsedValueForRow(SudokuRow sudokuRow, int sudokuRowIndex) {
-        for (int i = 0; i < sudokuRow.getSudokuElementList().size(); i++) {
-            sudokuRow.getSudokuElementList().get(i).getValuesToEliminate().removeAll(listOfUnusedValuesForRows.get(sudokuRowIndex));
-        }
-    }
-
-
 }
+
+
+
+

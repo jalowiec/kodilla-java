@@ -41,7 +41,7 @@ public class SudokuRound {
         for(int i=0; i<sudokuTableSize; i++){
             SudokuRow sudokuRow = new SudokuRow();
             for(int j=0; j<sudokuTableSize; j++){
-                SudokuElement sudokuElement = new SudokuElement(sudokuTableSize);
+                SudokuElement sudokuElement = new SudokuElement();
                 sudokuRow.getSudokuElementList().add(sudokuElement);
             }
             sudokuRowList.add(sudokuRow);

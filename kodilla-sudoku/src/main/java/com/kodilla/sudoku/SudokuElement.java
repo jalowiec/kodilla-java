@@ -9,9 +9,9 @@ public class SudokuElement {
     private int value;
     private Set<Integer> valuesToEliminate = new HashSet<>();
 
-    public SudokuElement(int sudokuTableSize) {
+    public SudokuElement() {
         this.value = EMPTY;
-        fillAllValuesToEliminate(sudokuTableSize);
+        setAllValuesToEliminate();
 
     }
 
@@ -27,9 +27,12 @@ public class SudokuElement {
         return valuesToEliminate;
     }
 
+    public void setValuesToEliminate(Set<Integer> valuesToEliminate) {
+        this.valuesToEliminate = valuesToEliminate;
+    }
 
-    public void fillAllValuesToEliminate(int sudokuTableSize) {
-        for (int i = 1; i <= sudokuTableSize; i++) {
+    public void setAllValuesToEliminate() {
+        for (int i = 1; i < 10; i++) {
             valuesToEliminate.add(i);
         }
     }

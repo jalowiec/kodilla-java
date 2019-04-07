@@ -6,13 +6,19 @@ import java.util.List;
 public class SudokuBoard {
 
     private List<SudokuRow> sudokuRowList = new ArrayList<>();
+    private SudokuOperations sudokuOperations;
 
     public SudokuBoard(List<SudokuRow> sudokuRowList) {
         this.sudokuRowList = sudokuRowList;
+        sudokuOperations = new SudokuOperations(this);
     }
 
     public List<SudokuRow> getSudokuRowList() {
         return sudokuRowList;
+    }
+
+    public SudokuOperations getSudokuOperations() {
+        return sudokuOperations;
     }
 
     @Override
