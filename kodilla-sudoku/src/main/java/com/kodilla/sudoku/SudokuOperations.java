@@ -124,4 +124,47 @@ public class SudokuOperations {
 
     }
 
+    public void printAllValuesToEliminate(){
+        for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
+            for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
+                System.out.println(sudokuElement.getValuesToEliminate());
+            }
+        }
+    }
+
+    public boolean isInputNumberValid(int userRowNumber, int userColNumber, int value){
+        int rowNumber = userRowNumber - 1;
+        int colNumber = userColNumber - 1;
+
+        int rowNumberIndex = rowNumber % 3;
+        int colNumberIndex = colNumber % 3;
+
+        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumberIndex);
+        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumberIndex);
+
+
+        for (SudokuElement sudokuElement : sudokuBoard.getSudokuRowList().get(rowNumber).getSudokuElementList()) {
+            if (sudokuElement.getValue() == value) {
+                return false;
+            }
+        }
+        for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
+            if (sudokuRow.getSudokuElementList().get(colNumber).getValue() == value) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < rowNumberIndexTable.length; i++) {
+            for (int j = 0; j < colNumberIndexTable.length; j++) {
+                if (sudokuBoard.getSudokuRowList().get(rowNumber + rowNumberIndexTable[i]).getSudokuElementList().get(colNumber + colNumberIndexTable[j]).getValue() == value) {
+                    return false;
+                }
+            }
+        }
+
+
+        return true;
+    }
+
+
 }

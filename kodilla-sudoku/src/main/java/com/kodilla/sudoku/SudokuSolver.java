@@ -14,12 +14,11 @@ public class SudokuSolver {
             for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
                 int col = 1;
                 for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
-                System.out.println(sudokuElement.getValuesToEliminate());
-                    /*if (sudokuElement.getValuesToEliminate().size() == 1) {
+                    if (sudokuElement.getValuesToEliminate().size() == 1) {
                         Integer[] valueToEliminate = sudokuElement.getValuesToEliminate().stream().toArray(Integer[]::new);
                         sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(row, col, valueToEliminate[0]);
                         continueMarkingProcedure = true;
-                    }*/
+                    }
                     col++;
                 }
                 row++;

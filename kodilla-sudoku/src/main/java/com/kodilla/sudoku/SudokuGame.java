@@ -11,17 +11,25 @@ public class SudokuGame {
     private SudokuBoard sudokuBoard;
 
     public SudokuGame() {
-        startSudokuRound();
+        runSudokuRound();
 
     }
 
-    private void startSudokuRound() {
-        SudokuRound sudokuRound = new SudokuRound();
-        int sudokuTableSize = sudokuRound.getSudokuTableSize();
-        sudokuRowList = sudokuRound.initSudokuBoard(sudokuTableSize);
-        sudokuBoard = new SudokuBoard(sudokuRowList);
-        drawSudokuTable(sudokuTableSize);
-        System.out.println(sudokuBoard.toString());
+    private void runSudokuRound() {
+        boolean nextRound = true;
+        while(nextRound) {
+            SudokuRound sudokuRound = new SudokuRound();
+            int sudokuTableSize = sudokuRound.getSudokuTableSize();
+            sudokuRowList = sudokuRound.initSudokuBoard(sudokuTableSize);
+            sudokuBoard = new SudokuBoard(sudokuRowList);
+            drawSudokuTable(sudokuTableSize);
+            System.out.println(sudokuBoard.toString());
+            System.out.println("Enter - kolejne sudoku / inny przycisk koniec gry:");
+            String userInput = scannerSingleton.nextLine();
+            if (!userInput.equals("")){
+                nextRound = false;
+            }
+        }
     }
 
     private void drawSudokuTable(int sudokuTableSize) {
@@ -44,11 +52,7 @@ public class SudokuGame {
                     int valueToInput = Integer.parseInt(userInputTable[2]);
                     sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(rowNumberToInputValue, colNumberToInputValue, valueToInput);
                     System.out.print(sudokuBoard.toString());
-                    for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
-                        for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
-                            System.out.println(sudokuElement.getValuesToEliminate());
-                        }
-                    }
+
                 }
             }
         }
@@ -67,6 +71,10 @@ public class SudokuGame {
                             i == 2 && userImputNumber != -1 && (userImputNumber > 9 || userImputNumber < 1)) {
 
                         System.out.println("Podane liczby powinny być z zakresu: od 1 do 9");
+                        return false;
+                    }
+                    if(i == 2 && !sudokuBoard.getSudokuOperations().isInputNumberValid(Integer.parseInt(userInputTable[0]), Integer.parseInt(userInputTable[1]), userImputNumber)){
+                        System.out.println("Wprowadzona wartosc juz widnieje w wierszu lub kolumnie lub sekcji");
                         return false;
                     }
                 }
