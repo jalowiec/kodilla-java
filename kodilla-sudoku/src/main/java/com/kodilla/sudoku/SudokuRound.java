@@ -5,7 +5,13 @@ import java.util.*;
 public class SudokuRound {
 
 
-    public int  getSudokuTableSize(){
+    private int tableSize;
+
+    public int getTableSize() {
+        return tableSize;
+    }
+
+    public int getFromUserSudokuTableSize(){
         int result = 0;
         Scanner scannerSingleton = ScannerSingleton.getInstance();
         boolean tableSizeCorrect = false;
@@ -15,6 +21,7 @@ public class SudokuRound {
                 result = scannerSingleton.nextInt();
                 if(isTableSizeCorrect(result)) {
                     tableSizeCorrect = true;
+                    tableSize = result;
                 } else{
                     System.out.println("Podana liczba nie jest z poprawnego zakresu");
                 }

@@ -75,10 +75,9 @@ public class SudokuOperations {
 
 
     private void removeValueFromValuesToEliminateFromSection(int rowNumber, int colNumber, int valueToEliminate){
-        int rowNumberIndex = rowNumber % 3;
-        int colNumberIndex = colNumber % 3;
-        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumberIndex);
-        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumberIndex);
+
+        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumber % 3);
+        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumber % 3);
 
 
         for (int i = 0; i < rowNumberIndexTable.length; i++) {
@@ -90,10 +89,9 @@ public class SudokuOperations {
     }
 
     private void addValueToValuesToEliminateToSection(int rowNumber, int colNumber, int valueToAdd){
-        int rowNumberIndex = rowNumber % 3;
-        int colNumberIndex = colNumber % 3;
-        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumberIndex);
-        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumberIndex);
+
+        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumber % 3);
+        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumber % 3);
 
 
         for (int i = 0; i < rowNumberIndexTable.length; i++) {
@@ -136,27 +134,24 @@ public class SudokuOperations {
         int rowNumber = userRowNumber - 1;
         int colNumber = userColNumber - 1;
 
-        int rowNumberIndex = rowNumber % 3;
-        int colNumberIndex = colNumber % 3;
-
-        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumberIndex);
-        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumberIndex);
+        Integer[] rowNumberIndexTable = pointersForSudokuSection.get(rowNumber % 3);
+        Integer[] colNumberIndexTable = pointersForSudokuSection.get(colNumber % 3);
 
 
         for (SudokuElement sudokuElement : sudokuBoard.getSudokuRowList().get(rowNumber).getSudokuElementList()) {
-            if (sudokuElement.getValue() == value) {
+            if (value != -1 && sudokuElement.getValue() == value) {
                 return false;
             }
         }
         for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
-            if (sudokuRow.getSudokuElementList().get(colNumber).getValue() == value) {
+            if (value != -1 && sudokuRow.getSudokuElementList().get(colNumber).getValue() == value) {
                 return false;
             }
         }
 
         for (int i = 0; i < rowNumberIndexTable.length; i++) {
             for (int j = 0; j < colNumberIndexTable.length; j++) {
-                if (sudokuBoard.getSudokuRowList().get(rowNumber + rowNumberIndexTable[i]).getSudokuElementList().get(colNumber + colNumberIndexTable[j]).getValue() == value) {
+                if (value != -1 && sudokuBoard.getSudokuRowList().get(rowNumber + rowNumberIndexTable[i]).getSudokuElementList().get(colNumber + colNumberIndexTable[j]).getValue() == value) {
                     return false;
                 }
             }
@@ -165,6 +160,19 @@ public class SudokuOperations {
 
         return true;
     }
+
+    public boolean isSudokuSolved(){
+        for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()){
+            for(SudokuElement sudokuElement : sudokuRow.getSudokuElementList()){
+                if(!sudokuElement.getValuesToEliminate().isEmpty()){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
 
 
 }

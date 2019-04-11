@@ -7,6 +7,17 @@ public class SudokuSolver {
     }
 
     public void solve() {
+
+        eliminateValuesSolver();
+        int i=2;
+        while(i<4){
+            guessingValuesSolver();
+            eliminateValuesSolver();
+            i++;
+        }
+    }
+
+    private void eliminateValuesSolver(){
         boolean continueMarkingProcedure = true;
         while (continueMarkingProcedure) {
             continueMarkingProcedure = false;
@@ -24,7 +35,16 @@ public class SudokuSolver {
                 row++;
             }
         }
-        sudokuBoard.toString();
+    }
+    private void guessingValuesSolver(){
+        System.out.println("uruchomienie algorytmu zgadujacego");
+        try {
+            System.out.println("Skopiowana tablica: ");
+            sudokuBoard.deepCopy().toString();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

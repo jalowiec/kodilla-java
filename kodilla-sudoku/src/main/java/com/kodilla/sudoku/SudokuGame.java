@@ -9,6 +9,7 @@ public class SudokuGame {
     private Scanner scannerSingleton = ScannerSingleton.getInstance();
     private List<SudokuRow> sudokuRowList;
     private SudokuBoard sudokuBoard;
+    private SudokuRound sudokuRound = new SudokuRound();
 
     public SudokuGame() {
         runSudokuRound();
@@ -18,8 +19,7 @@ public class SudokuGame {
     private void runSudokuRound() {
         boolean nextRound = true;
         while(nextRound) {
-            SudokuRound sudokuRound = new SudokuRound();
-            int sudokuTableSize = sudokuRound.getSudokuTableSize();
+            int sudokuTableSize = sudokuRound.getFromUserSudokuTableSize();
             sudokuRowList = sudokuRound.initSudokuBoard(sudokuTableSize);
             sudokuBoard = new SudokuBoard(sudokuRowList);
             drawSudokuTable(sudokuTableSize);
@@ -65,18 +65,30 @@ public class SudokuGame {
             return false;
         } else {
             try {
-                for (int i = 0; i < userInputTable.length; i++) {
-                    int userImputNumber = Integer.parseInt(userInputTable[i]);
-                    if ((i < 2 && (userImputNumber > 9 || userImputNumber < 1)) ||
-                            i == 2 && userImputNumber != -1 && (userImputNumber > 9 || userImputNumber < 1)) {
+                int userInputRow = Integer.parseInt(userInputTable[0]);
+                int userInputCol = Integer.parseInt(userInputTable[1]);
+                int userInputValue = Integer.parseInt(userInputTable[2]);
 
-                        System.out.println("Podane liczby powinny być z zakresu: od 1 do 9");
-                        return false;
-                    }
-                    if(i == 2 && !sudokuBoard.getSudokuOperations().isInputNumberValid(Integer.parseInt(userInputTable[0]), Integer.parseInt(userInputTable[1]), userImputNumber)){
-                        System.out.println("Wprowadzona wartosc juz widnieje w wierszu lub kolumnie lub sekcji");
-                        return false;
-                    }
+
+                if(userInputRow > sudokuRound.getTableSize() || userInputRow < 1){
+                    System.out.println("Numer wiersza powinien byc z zakresu: od 1 do " + sudokuRound.getTableSize());
+                    return false;
+                }
+
+                if(userInputCol > sudokuRound.getTableSize() || userInputCol < 1){
+                    System.out.println("Numer kolumny powinien byc z zakresu: od 1 do " + sudokuRound.getTableSize());
+                    return false;
+                }
+
+                if(userInputValue != -1 && (userInputValue > 9 || userInputValue < 1)){
+                    System.out.println("Wartosc powinna byc z zakresu: od 1 do 9 (lub -1 aby usunac zawartosc komorki)" + sudokuRound.getTableSize());
+                    return false;
+                }
+
+                if (!sudokuBoard.getSudokuOperations().isInputNumberValid(userInputRow, userInputCol, userInputValue)) {
+                    System.out.println("Wprowadzona wartosc juz widnieje w wierszu lub kolumnie lub sekcji");
+                    return false;
+
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Niepoprawny format argumentow");
