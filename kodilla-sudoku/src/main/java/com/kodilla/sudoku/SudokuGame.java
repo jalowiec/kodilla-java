@@ -41,8 +41,8 @@ public class SudokuGame {
             String userInput = scannerSingleton.nextLine();
             if (userInput.equals("SUDOKU")) {
                 endOfDrawingTable = true;
-                SudokuSolver sudokuSolver = new SudokuSolver(sudokuBoard);
-                sudokuSolver.solve();
+                SudokuSolver sudokuSolver = new SudokuSolver();
+                sudokuSolver.solve(sudokuBoard);
 
             } else {
                 if (isUserInputCorrect(userInput)) {

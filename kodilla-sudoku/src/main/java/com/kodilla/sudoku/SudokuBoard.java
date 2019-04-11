@@ -58,9 +58,9 @@ public class SudokuBoard implements Cloneable{
     }
 
     private void initCloneSudokuBoard(SudokuBoard cloneSudokuBoard){
-        cloneSudokuBoard.getSudokuOperations().printAllValuesToEliminate();
-        List<SudokuRow> cloneSudokuRowList = new ArrayList<>();
 
+        new SudokuOperations(this);
+        List<SudokuRow> cloneSudokuRowList = new ArrayList<>();
 
         for (int i = 0; i < this.sudokuRowList.size(); i++) {
             SudokuRow cloneSudokuRow = new SudokuRow();

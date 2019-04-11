@@ -37,6 +37,10 @@ public class SudokuElement {
         }
     }
 
+    public void deleteValueFromValuesToEliminate(int valueToEliminate){
+        valuesToEliminate.remove(valueToEliminate);
+    }
+
 
 
 }
