@@ -17,27 +17,20 @@ public class SudokuSolver {
 
         eliminateValuesSolver(sudokuBoard);
 
-        if (!sudokuBoard.getSudokuOperations().isSudokuSolved()) {
-
+        while (!sudokuBoard.getSudokuOperations().isSudokuSolved(sudokuBoard)) {
             guessingValuesSolver(sudokuBoard);
-            eliminateValuesSolver(backtrack.get(backtrack.size() - 1).sudokuBoard);
+            //System.out.println("po zgadnieciu: " + sudokuBoard.getSudokuRowList().get(2).getSudokuElementList().get(1).getValuesToEliminate());
+            System.out.println("po zgadnieciu: " +  sudokuBoard.hashCode());
+            eliminateValuesSolver(sudokuBoard);
+            System.out.println(sudokuBoard.toString());
 
-            while (!backtrack.get(backtrack.size() - 1).sudokuBoard.getSudokuOperations().isSudokuSolved()) {
-
-                guessingValuesSolver(backtrack.get(backtrack.size() - 1).sudokuBoard);
-                eliminateValuesSolver(backtrack.get(backtrack.size() - 1).sudokuBoard);
-
-                //  backtrack.get(backtrack.size()-1).sudokuBoard.getSudokuOperations().printAllValuesToEliminate();
-                System.out.println(backtrack.get(backtrack.size() - 1).sudokuBoard.toString());
-
-                String input = scannerSingleton.nextLine();
-                if (!input.equals("")) {
-                    {
-                        System.out.println("wstrzymanie");
-                    }
+            String input = scannerSingleton.nextLine();
+            if (!input.equals("")) {
+                {
+                    System.out.println("wstrzymanie");
                 }
-
             }
+
         }
 
     }
@@ -50,7 +43,9 @@ public class SudokuSolver {
             for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
                 int col = 1;
                 for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
+                    System.out.println("rozmiar: " + sudokuElement.getValuesToEliminate().size());
                     if (sudokuElement.getValuesToEliminate().size() == 1) {
+                        scannerSingleton.nextLine();
                         Integer[] valueToEliminate = sudokuElement.getValuesToEliminate().stream().toArray(Integer[]::new);
                         sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(row, col, valueToEliminate[0]);
                         continueMarkingProcedure = true;
@@ -60,6 +55,7 @@ public class SudokuSolver {
                 row++;
             }
         }
+        System.out.println("SOLVEe");
     }
 
     private void guessingValuesSolver(SudokuBoard sudokuBoard) {
@@ -71,28 +67,27 @@ public class SudokuSolver {
             if (unresolvedElementGuessingValue != -1) {
                 SudokuBoard cloneSudokuBoard = sudokuBoard.deepCopy();
                 backtrack.add(new SudokuGameState(cloneSudokuBoard, unresolvedElementCoordinates, unresolvedElementGuessingValue));
-                System.out.println("Stworzylem obiekt: ");
-                System.out.println("zgadnieta wartosc:" + backtrack.get(backtrack.size() - 1).elementValue);
-                System.out.println("zgadniety wspol:" + backtrack.get(backtrack.size() - 1).elementPosition[0] + " " + backtrack.get(backtrack.size() - 1).elementPosition[1]);
-                System.out.println("wybor: " + backtrack.get(backtrack.size() - 1).sudokuBoard.getSudokuRowList().get(2).getSudokuElementList().get(1).getValuesToEliminate());
-                cloneSudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(unresolvedElementCoordinates[0] + 1, unresolvedElementCoordinates[1] + 1, unresolvedElementGuessingValue);
+                System.out.println(backtrack.get(backtrack.size()-1).sudokuBoard.getSudokuRowList().get(2).getSudokuElementList().get(1).getValuesToEliminate());
+                System.out.println("---" + backtrack.size());
+                //printBackTrack();
+
+                sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(unresolvedElementCoordinates[0] + 1, unresolvedElementCoordinates[1] + 1, unresolvedElementGuessingValue);
             } else {
                 System.out.println("Error");
-                int[] badElementdCoordinates = backtrack.get(backtrack.size() - 1).elementPosition;
-                int wrongValue = backtrack.get(backtrack.size() - 1).elementValue;
-                backtrack.get(backtrack.size() - 1).sudokuBoard.getSudokuOperations().getSudokuElement(badElementdCoordinates).deleteValueFromValuesToEliminate(wrongValue);
+                int eliminateValue = backtrack.get(backtrack.size()-1).elementValue;
+                int[] positionToEliminate = backtrack.get(backtrack.size()-1).elementPosition;
+                System.out.println(eliminateValue);
+                System.out.println(positionToEliminate[0] + " " + positionToEliminate[1]);
+                backtrack.get(backtrack.size()-1).sudokuBoard.getSudokuRowList().get(positionToEliminate[0]).getSudokuElementList().get(positionToEliminate[1]).deleteValueFromValuesToEliminate(eliminateValue);
 
-
-                if (!backtrack.get(backtrack.size() - 1).sudokuBoard.getSudokuOperations().getSudokuElement(badElementdCoordinates).getValuesToEliminate().isEmpty()) {
-                    System.out.println("zgadywanie innej liczby");
-                    guessingValuesSolver(sudokuBoard);
-                } else {
-                    System.out.println("cofka");
-                    backtrack.remove(backtrack.size() - 1);
-                    if (backtrack.size() > 0) {
-                        guessingValuesSolver(backtrack.get(backtrack.size() - 1).sudokuBoard);
-                    }
-                }
+                System.out.println("SUDOKUBOARD: " + sudokuBoard.hashCode());
+                System.out.println("BACKTRACKBOARD: " + backtrack.get(backtrack.size()-1).hashCode());
+                System.out.println(sudokuBoard.getSudokuRowList().get(positionToEliminate[0]).getSudokuElementList().get(positionToEliminate[1]).getValuesToEliminate());
+                System.out.println("--");
+                sudokuBoard = backtrack.get(backtrack.size()-1).sudokuBoard;
+                System.out.println("COPYUBOARD: " + sudokuBoard.hashCode());
+                System.out.println(sudokuBoard.getSudokuRowList().get(positionToEliminate[0]).getSudokuElementList().get(positionToEliminate[1]).getValuesToEliminate());
+                solve(sudokuBoard);
 
             }
 
@@ -124,6 +119,16 @@ public class SudokuSolver {
             }
         }
         return -1;
+    }
+
+    private void printBackTrack(){
+
+        for (SudokuGameState sudokuGameState : backtrack){
+
+            System.out.println(sudokuGameState.sudokuBoard.getSudokuRowList().get(2).getSudokuElementList().get(1).getValuesToEliminate());
+
+        }
+
     }
 
 

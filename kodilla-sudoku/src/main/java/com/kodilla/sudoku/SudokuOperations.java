@@ -164,7 +164,7 @@ public class SudokuOperations {
         return true;
     }
 
-    public boolean isSudokuSolved() {
+    public boolean isSudokuSolved(SudokuBoard sudokuBoard) {
         for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
             for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
                 if (!sudokuElement.getValuesToEliminate().isEmpty()) {

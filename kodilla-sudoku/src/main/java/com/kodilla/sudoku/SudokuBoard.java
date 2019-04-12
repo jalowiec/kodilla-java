@@ -3,14 +3,18 @@ package com.kodilla.sudoku;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuBoard implements Cloneable{
+public class SudokuBoard extends Prototype{
 
-    private List<SudokuRow> sudokuRowList = new ArrayList<>();
+    private List<SudokuRow> sudokuRowList;
     private SudokuOperations sudokuOperations;
 
     public SudokuBoard(List<SudokuRow> sudokuRowList){
         this.sudokuRowList = sudokuRowList;
         sudokuOperations = new SudokuOperations(this);
+    }
+
+    public void setSudokuRowList(List<SudokuRow> sudokuRowList) {
+        this.sudokuRowList = sudokuRowList;
     }
 
     public List<SudokuRow> getSudokuRowList() {
@@ -51,27 +55,26 @@ public class SudokuBoard implements Cloneable{
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException{
-        SudokuBoard cloneBoard = (SudokuBoard) this.clone();
-        initCloneSudokuBoard(cloneBoard);
+        SudokuBoard cloneBoard = (SudokuBoard) super.clone();
+
+        List<SudokuRow> cloneSudokuRowList = new ArrayList<>();
+
+        for (int i = 0; i < sudokuRowList.size(); i++) {
+            SudokuRow cloneSudokuRow = new SudokuRow();
+            for (int j = 0; j < sudokuRowList.size(); j++) {
+                SudokuElement cloneSudokuElement = new SudokuElement();
+                cloneSudokuElement.setValue(sudokuRowList.get(i).getSudokuElementList().get(j).getValue());
+                cloneSudokuElement.getValuesToEliminate().addAll(sudokuRowList.get(i).getSudokuElementList().get(j).getValuesToEliminate());
+                cloneSudokuRow.getSudokuElementList().add(cloneSudokuElement);
+
+            }
+            cloneSudokuRowList.add(cloneSudokuRow);
+        }
+
+        cloneBoard.setSudokuRowList(cloneSudokuRowList);
 
         return cloneBoard;
     }
 
-    private void initCloneSudokuBoard(SudokuBoard cloneSudokuBoard){
-
-        new SudokuOperations(this);
-        List<SudokuRow> cloneSudokuRowList = new ArrayList<>();
-
-        for (int i = 0; i < this.sudokuRowList.size(); i++) {
-            SudokuRow cloneSudokuRow = new SudokuRow();
-            for (int j = 0; j < this.sudokuRowList.size(); j++) {
-                SudokuElement cloneSudokuElement = new SudokuElement();
-                cloneSudokuElement.getValuesToEliminate().addAll(this.sudokuRowList.get(i).getSudokuElementList().get(j).getValuesToEliminate());
-                cloneSudokuElement.setValue(this.sudokuRowList.get(i).getSudokuElementList().get(j).getValue());
-                cloneSudokuRow.getSudokuElementList().add(cloneSudokuElement);
-            }
-            cloneSudokuRowList.add(cloneSudokuRow);
-        }
-    }
 
 }

@@ -32,7 +32,7 @@ public class SudokuGame {
         }
     }
 
-    private void drawSudokuTable(int sudokuTableSize) {
+    private void drawSudokuTable() {
         boolean endOfDrawingTable = false;
         while (!endOfDrawingTable) {
             System.out.println("Podaj wiersz, kolumne i wartość (-1 aby wyczyscic komorke)");

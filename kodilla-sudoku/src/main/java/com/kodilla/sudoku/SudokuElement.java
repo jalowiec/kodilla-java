@@ -11,7 +11,7 @@ public class SudokuElement {
 
     public SudokuElement() {
         this.value = EMPTY;
-        setAllValuesToEliminate();
+
 
     }
 
