@@ -16,6 +16,7 @@ public class SudokuSolver {
     public void solve(SudokuBoard sudokuBoard) {
 
         eliminateValuesSolver(sudokuBoard);
+        System.out.println("SOLVER");
 
         while (!sudokuBoard.getSudokuOperations().isSudokuSolved(sudokuBoard)) {
             guessingValuesSolver(sudokuBoard);
@@ -43,11 +44,10 @@ public class SudokuSolver {
             for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
                 int col = 1;
                 for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
-                    System.out.println("rozmiar: " + sudokuElement.getValuesToEliminate().size());
                     if (sudokuElement.getValuesToEliminate().size() == 1) {
                         scannerSingleton.nextLine();
                         Integer[] valueToEliminate = sudokuElement.getValuesToEliminate().stream().toArray(Integer[]::new);
-                        sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(row, col, valueToEliminate[0]);
+                        sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(sudokuBoard, row, col, valueToEliminate[0]);
                         continueMarkingProcedure = true;
                     }
                     col++;
@@ -55,7 +55,6 @@ public class SudokuSolver {
                 row++;
             }
         }
-        System.out.println("SOLVEe");
     }
 
     private void guessingValuesSolver(SudokuBoard sudokuBoard) {
@@ -71,7 +70,7 @@ public class SudokuSolver {
                 System.out.println("---" + backtrack.size());
                 //printBackTrack();
 
-                sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(unresolvedElementCoordinates[0] + 1, unresolvedElementCoordinates[1] + 1, unresolvedElementGuessingValue);
+                sudokuBoard.getSudokuOperations().insertValueIntoSudokuTable(sudokuBoard, unresolvedElementCoordinates[0] + 1, unresolvedElementCoordinates[1] + 1, unresolvedElementGuessingValue);
             } else {
                 System.out.println("Error");
                 int eliminateValue = backtrack.get(backtrack.size()-1).elementValue;
@@ -87,7 +86,9 @@ public class SudokuSolver {
                 sudokuBoard = backtrack.get(backtrack.size()-1).sudokuBoard;
                 System.out.println("COPYUBOARD: " + sudokuBoard.hashCode());
                 System.out.println(sudokuBoard.getSudokuRowList().get(positionToEliminate[0]).getSudokuElementList().get(positionToEliminate[1]).getValuesToEliminate());
-                solve(sudokuBoard);
+                if(!sudokuBoard.getSudokuRowList().get(positionToEliminate[0]).getSudokuElementList().get(positionToEliminate[1]).getValuesToEliminate().isEmpty()) {
+                    solve(sudokuBoard);
+                }
 
             }
 

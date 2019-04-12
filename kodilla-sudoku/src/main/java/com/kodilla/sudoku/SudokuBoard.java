@@ -10,7 +10,8 @@ public class SudokuBoard extends Prototype{
 
     public SudokuBoard(List<SudokuRow> sudokuRowList){
         this.sudokuRowList = sudokuRowList;
-        sudokuOperations = new SudokuOperations(this);
+        sudokuOperations = new SudokuOperations();
+        sudokuOperations.fillPointersForSudokuSection();
     }
 
     public void setSudokuRowList(List<SudokuRow> sudokuRowList) {
