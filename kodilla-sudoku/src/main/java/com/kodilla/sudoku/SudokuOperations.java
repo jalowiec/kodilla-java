@@ -156,7 +156,7 @@ public class SudokuOperations {
     public boolean isSudokuSolved(SudokuBoard sudokuBoard) {
         for (SudokuRow sudokuRow : sudokuBoard.getSudokuRowList()) {
             for (SudokuElement sudokuElement : sudokuRow.getSudokuElementList()) {
-                if (!sudokuElement.getValuesToEliminate().isEmpty()) {
+                if (sudokuElement.getValue() == -1) {
                     return false;
                 }
             }
