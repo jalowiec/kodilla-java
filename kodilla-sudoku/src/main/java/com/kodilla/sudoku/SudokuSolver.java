@@ -21,11 +21,6 @@ public class SudokuSolver {
     public SudokuBoard solve() {
 
         eliminateValuesSolver();
-        if (sudokuBoard.getSudokuOperations().isSudokuSolved(sudokuBoard)) {
-            System.out.println(sudokuBoard.toString());
-            return sudokuBoard;
-        }
-
         while (!sudokuBoard.getSudokuOperations().isSudokuSolved(sudokuBoard)) {
             guessingValuesSolver();
             eliminateValuesSolver();
