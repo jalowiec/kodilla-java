@@ -23,10 +23,11 @@ public class SudokuGame {
             sudokuRowList = sudokuRound.initSudokuBoard(sudokuTableSize);
             sudokuBoard = new SudokuBoard(sudokuRowList);
             drawSudokuTable(sudokuBoard);
-            System.out.println(sudokuBoard.toString());
+            SudokuSolver sudokuSolver = new SudokuSolver(sudokuBoard);
+            System.out.println(sudokuSolver.solve().toString());
             System.out.println("Enter - kolejne sudoku / inny przycisk koniec gry:");
             String userInput = scannerSingleton.nextLine();
-            if (!userInput.equals("")){
+            if (!"".equals(userInput)){
                 nextRound = false;
             }
         }
@@ -39,10 +40,8 @@ public class SudokuGame {
             System.out.println("Aby zakonczyc wprowadzanie wpisz: SUDOKU");
 
             String userInput = scannerSingleton.nextLine();
-            if (userInput.equals("SUDOKU")) {
+            if ("SUDOKU".equals(userInput)) {
                 endOfDrawingTable = true;
-                SudokuSolver sudokuSolver = new SudokuSolver();
-                sudokuSolver.solve(sudokuBoard);
 
             } else {
                 if (isUserInputCorrect(sudokuBoard, userInput)) {
