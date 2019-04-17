@@ -23,8 +23,6 @@ public class InvoiceDaoTestSuite {
     private InvoiceDao invoiceDao;
 
 
-
-
     private static final String PRODUCT1_NAME = "Buty do biegania";
     private static final String PRODUCT2_NAME = "Rakieta do tenisa";
 
@@ -57,13 +55,10 @@ public class InvoiceDaoTestSuite {
 
 
         //When
-        //invoiceDao.save(invoice);
         invoiceDao.save(invoice);
         /*        int id = invoice.getId();
-
         //Then
         Assert.assertNotEquals(0, id);
-
         //CleanUp
         invoiceDao.deleteById(id);
 */
