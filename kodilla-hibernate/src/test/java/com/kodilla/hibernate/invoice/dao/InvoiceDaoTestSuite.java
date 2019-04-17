@@ -56,12 +56,14 @@ public class InvoiceDaoTestSuite {
 
         //When
         invoiceDao.save(invoice);
-        /*        int id = invoice.getId();
+        int id = invoice.getId();
+
         //Then
         Assert.assertNotEquals(0, id);
+
         //CleanUp
         invoiceDao.deleteById(id);
-*/
+
 
     }
 
