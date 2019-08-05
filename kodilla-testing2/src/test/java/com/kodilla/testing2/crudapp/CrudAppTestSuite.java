@@ -4,6 +4,7 @@ import com.kodilla.testing2.config.WebDriverConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,8 +32,8 @@ public class CrudAppTestSuite {
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException{
         String taskName = createCrudAppTestTask();
-     //   sendTestTaskToTrello(taskName);
-     //   assertTrue(checkTaskExistsInTrello(taskName));
+       // sendTestTaskToTrello(taskName);
+      //  assertTrue(checkTaskExistsInTrello(taskName));
         deleteCrudAppTestTask(taskName);
 
     }
@@ -75,6 +76,9 @@ public class CrudAppTestSuite {
                     WebElement buttonCreateCard = theForm.findElement(By.xpath(".//button[contains(@class, \"card-creation\")]"));
                     buttonCreateCard.click();
                 });
+
+        Thread.sleep(1000);
+        driver.switchTo().alert().accept();
         Thread.sleep(5000);
 
     }
